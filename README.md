@@ -20,25 +20,19 @@
 <img src="img/step3.png">
 このような画面が出てきていれば作成完了<br>
 
-### Step2：アップロードしないファイルを選択
-最初に述べたように実験データなどは上げない．<br>
-毎回ファイル名を指定して保存するのはめんどくさいので.gitignoreというファイルを作成して保存しないフォルダやファイルを箇条書きしておく．<br>
-例えばこんな感じ．書き方はググれば出てくるので細かい指定方法とかは省略
-```gitignore
-venv/
-__pycache__/
-*.pth
-.ipynb_checkpoints/
+次にGitHubに上げないファイルを.gitignoreに追加
+
+```bash
+venv
+__pycache__
+.ipynb_checkpoints
+.npy
+.pth
 ```
 
-### Step2：コードをアップロードする
-以下のコマンドを作業ディレクトリのterminal/cmdで実行する<br>
-branchがmasterじゃなくてmainなのはgithubの意向らしい．2020年にmasterはセンシティブや！ってなって変更されたとか．<br>
-mainでもmasterどっちでも問題はない.
-Gitで管理してたローカルのファイル上げるときとかはmasterのままでよい．
+### Step2. GitHubにアップロードする
 
-```terminal
-git init
+```bash
 git add -A
 git commit -m "first commit"
 git branch -M main
@@ -46,35 +40,35 @@ git remote add origin https://github.com/BSYS-EMG/xx-name-title.git
 git push -u origin main
 ```
 
-### Step3: 変更点をアップロードする（差分を保存する）
-2回目からはコマンド3つだけでOK!<br>
-```terminal
+このときに容量の大きいファイル（機械学習の学習済み重みや入力データなど）が含まれているとエラーが起きるので注意
+
+### Step3. 変更点をアップロード
+
+```bash
 git add -A
 git commit -m "hogehoge"
-git push 
+git push
 ```
 
-## 新規ブランチの作成
-使用するパッケージを変更するとかアルゴリズムを変更するとかプロジェクトを大きく変更しなければいけない場合はbranchを分けた方が良い．<br>
-自分がどこを変更したかわかるように先輩のプログラムやgit cloneしたプログラムから派生させる場合もbranchを分けておくとよい．<br>
-branchを分ければバグが起きても本筋のプログラムに影響が起きない．<br>
+### Step4. 他の端末で更新した変更点を取得してマージ
 
-### Step1：新規branchを作成する
-今までは全部`main`ブランチで管理していたので新規ブランチを作成する．<br>
-```terminal
-git branch branch1
+```bash
+git stash -u
+git pull origin [remote_branch]
 ```
 
-## Step2：branchを移動して保存する
-Step1ではbranchを作成しただけで作業branchは`main`のままなので移動する必要がある．
-```
-git checkout branch1
+### Step5. ブランチを作成
+
+```bash
+git branch [branch_name]
+git checkout [branch_name]
 ```
 
-### Step3：アップロードする
-アップロードの手順はmainの時と同じ
-```terminal
-git add -A
-git commit -m "hogehoge"
-git push -u origin branch1
+### Step6. ブランチに変更点をマージ
+
+```bash
+git stash -u
+git pull origin [remote_branch]:[local_branch]
 ```
+
+--
