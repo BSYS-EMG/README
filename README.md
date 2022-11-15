@@ -50,21 +50,22 @@ git commit -m "hogehoge"
 git push
 ```
 
-### Step4. 他の端末で更新した変更点を取得してマージ
+---
+### 他の端末で更新した変更点を取得してマージ
 
 ```bash
 git stash -u
 git pull origin [remote_branch]
 ```
 
-### Step5. ブランチを作成
+### ブランチを作成
 
 ```bash
 git branch [branch_name]
 git checkout [branch_name]
 ```
 
-### Step6. ブランチに変更点をマージ
+### ブランチに変更点をマージ
 
 ```bash
 git stash -u
